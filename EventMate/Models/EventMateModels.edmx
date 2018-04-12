@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="eventmateModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fkevent" Type="int" Nullable="false" />
+          <Property Name="fkuser" Type="int" Nullable="false" />
+          <Property Name="fkstatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="attendancestatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="events">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="location" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="description" Type="longtext" Nullable="false" />
+          <Property Name="dateandtime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="eventpicture" Type="mediumblob" />
+          <Property Name="eventpictureurl" Type="varchar" MaxLength="2048" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="256" />
+          <Property Name="title" Type="varchar" MaxLength="64" />
+          <Property Name="email" Type="varchar" MaxLength="2048" />
+          <Property Name="displayname" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_event">
+          <End Role="events" Type="Self.events" Multiplicity="1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="fkevent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_status">
+          <End Role="attendancestatus" Type="Self.attendancestatus" Multiplicity="1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendancestatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="fkstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="fkuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="eventmateModelStoreContainer">
+          <EntitySet Name="attendance" EntityType="Self.attendance" Schema="eventmate" store:Type="Tables" />
+          <EntitySet Name="attendancestatus" EntityType="Self.attendancestatus" Schema="eventmate" store:Type="Tables" />
+          <EntitySet Name="events" EntityType="Self.events" Schema="eventmate" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="eventmate" store:Type="Tables" />
+          <AssociationSet Name="fk_event" Association="Self.fk_event">
+            <End Role="events" EntitySet="events" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="fk_status" Association="Self.fk_status">
+            <End Role="attendancestatus" EntitySet="attendancestatus" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user" Association="Self.fk_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="eventmateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fkevent" Type="Int32" Nullable="false" />
+          <Property Name="fkuser" Type="Int32" Nullable="false" />
+          <Property Name="fkstatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="events" Relationship="Self.fk_event" FromRole="attendance" ToRole="events" />
+          <NavigationProperty Name="attendancestatus" Relationship="Self.fk_status" FromRole="attendance" ToRole="attendancestatus" />
+          <NavigationProperty Name="users" Relationship="Self.fk_user" FromRole="attendance" ToRole="users" />
+        </EntityType>
+        <EntityType Name="attendancestatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="attendance" Relationship="Self.fk_status" FromRole="attendancestatus" ToRole="attendance" />
+        </EntityType>
+        <EntityType Name="events">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dateandtime" Type="DateTime" Nullable="false" />
+          <Property Name="eventpicture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="attendance" Relationship="Self.fk_event" FromRole="events" ToRole="attendance" />
+          <Property Name="eventpictureurl" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+          <Property Name="displayname" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="attendance" Relationship="Self.fk_user" FromRole="users" ToRole="attendance" />
+        </EntityType>
+        <Association Name="fk_event">
+          <End Role="events" Type="Self.events" Multiplicity="1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="fkevent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_status">
+          <End Role="attendancestatus" Type="Self.attendancestatus" Multiplicity="1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendancestatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="fkstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="fkuser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="eventmateEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="attendance" EntityType="Self.attendance" />
+          <EntitySet Name="attendancestatus" EntityType="Self.attendancestatus" />
+          <EntitySet Name="events" EntityType="Self.events" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="fk_event" Association="Self.fk_event">
+            <End Role="events" EntitySet="events" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="fk_status" Association="Self.fk_status">
+            <End Role="attendancestatus" EntitySet="attendancestatus" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user" Association="Self.fk_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="eventmateModelStoreContainer" CdmEntityContainer="eventmateEntities">
+          <EntitySetMapping Name="attendance">
+            <EntityTypeMapping TypeName="eventmateModel.attendance">
+              <MappingFragment StoreEntitySet="attendance">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fkevent" ColumnName="fkevent" />
+                <ScalarProperty Name="fkuser" ColumnName="fkuser" />
+                <ScalarProperty Name="fkstatus" ColumnName="fkstatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="attendancestatus">
+            <EntityTypeMapping TypeName="eventmateModel.attendancestatus">
+              <MappingFragment StoreEntitySet="attendancestatus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="events">
+            <EntityTypeMapping TypeName="eventmateModel.events">
+              <MappingFragment StoreEntitySet="events">
+                <ScalarProperty Name="eventpictureurl" ColumnName="eventpictureurl" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="dateandtime" ColumnName="dateandtime" />
+                <ScalarProperty Name="eventpicture" ColumnName="eventpicture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="eventmateModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="displayname" ColumnName="displayname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

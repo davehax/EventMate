@@ -1,0 +1,59 @@
+﻿@model EventMate.Models.events
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>events</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateandtime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateandtime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.eventpictureurl)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.eventpictureurl)*@
+            <img src="@Model.eventpictureurl" style="max-width: 250px;" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

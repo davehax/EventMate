@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EventMate.Models.attendance>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.events.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.attendancestatus.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.users.firstname)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.events.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.attendancestatus.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.users.firstname)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
