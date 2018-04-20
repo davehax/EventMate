@@ -44,6 +44,24 @@
           <Property Name="email" Type="varchar" MaxLength="2048" />
           <Property Name="displayname" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.eventmate.view_eventattendees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="view_eventattendees">
+          <Key>
+            <PropertyRef Name="attendanceId" />
+            <PropertyRef Name="eventId" />
+          </Key>
+          <Property Name="attendanceId" Type="int" Nullable="false" />
+          <Property Name="eventId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="firstname" Type="varchar" MaxLength="256" />
+          <Property Name="lastname" Type="varchar" MaxLength="256" />
+          <Property Name="title" Type="varchar" MaxLength="64" />
+          <Property Name="email" Type="varchar" MaxLength="2048" />
+          <Property Name="displayname" Type="varchar" MaxLength="128" />
+          <Property Name="attendanceStatusId" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="128" />
+        </EntityType>
         <Association Name="fk_event">
           <End Role="events" Type="Self.events" Multiplicity="1" />
           <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
@@ -85,6 +103,20 @@
           <EntitySet Name="attendancestatus" EntityType="Self.attendancestatus" Schema="eventmate" store:Type="Tables" />
           <EntitySet Name="events" EntityType="Self.events" Schema="eventmate" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="eventmate" store:Type="Tables" />
+          <EntitySet Name="view_eventattendees" EntityType="Self.view_eventattendees" store:Type="Views" store:Schema="eventmate">
+            <DefiningQuery>SELECT
+`view_eventattendees`.`attendanceId`, 
+`view_eventattendees`.`eventId`, 
+`view_eventattendees`.`userId`, 
+`view_eventattendees`.`firstname`, 
+`view_eventattendees`.`lastname`, 
+`view_eventattendees`.`title`, 
+`view_eventattendees`.`email`, 
+`view_eventattendees`.`displayname`, 
+`view_eventattendees`.`attendanceStatusId`, 
+`view_eventattendees`.`status`
+FROM `view_eventattendees` AS `view_eventattendees`</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="fk_event" Association="Self.fk_event">
             <End Role="events" EntitySet="events" />
             <End Role="attendance" EntitySet="attendance" />
@@ -200,7 +232,24 @@
             <End Role="users" EntitySet="users" />
             <End Role="attendance" EntitySet="attendance" />
           </AssociationSet>
+          <EntitySet Name="view_eventattendees" EntityType="eventmateModel.view_eventattendees" />
         </EntityContainer>
+        <EntityType Name="view_eventattendees">
+          <Key>
+            <PropertyRef Name="attendanceId" />
+            <PropertyRef Name="eventId" />
+          </Key>
+          <Property Name="attendanceId" Type="Int32" Nullable="false" />
+          <Property Name="eventId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="firstname" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+          <Property Name="displayname" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="attendanceStatusId" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -247,6 +296,22 @@
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="displayname" ColumnName="displayname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_eventattendees">
+            <EntityTypeMapping TypeName="eventmateModel.view_eventattendees">
+              <MappingFragment StoreEntitySet="view_eventattendees">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="attendanceStatusId" ColumnName="attendanceStatusId" />
+                <ScalarProperty Name="displayname" ColumnName="displayname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="eventId" ColumnName="eventId" />
+                <ScalarProperty Name="attendanceId" ColumnName="attendanceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

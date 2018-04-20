@@ -33,6 +33,11 @@ namespace EventMate.Controllers
             {
                 return HttpNotFound();
             }
+
+            // Load additional data from the database to provide additional context for end users
+            List<view_eventattendees> eventAttendees = db.view_eventattendees.Where(e => e.eventId == id).ToList();
+            ViewBag.EventAttendees = eventAttendees;
+
             return View(events);
         }
 
@@ -51,24 +56,6 @@ namespace EventMate.Controllers
         {
             if (ModelState.IsValid)
             {
-                //if (events.EventPictureFile != null)
-                //{
-                //    byte[] buffer = new byte[events.EventPictureFile.ContentLength];
-                //    events.EventPictureFile.InputStream.Read(buffer, 0, events.EventPictureFile.ContentLength);
-
-                //    // ensure folder exists
-                //    if (!Directory.Exists(Server.MapPath("~/uploads"))) { Directory.CreateDirectory(Server.MapPath("~/uploads")); }
-                //    if (!Directory.Exists(Server.MapPath("~/uploads/events"))) { Directory.CreateDirectory(Server.MapPath("~/uploads/events")); }
-
-                //    // save file to disk
-                //    string fileName = string.Format("{0}_{1}", DateTime.Now.ToString("yyyyMMddhhmmss"), events.EventPictureFile.FileName);
-                //    string filePath = string.Format("/uploads/events/{0}", fileName);
-                //    string mappedFilePath = Server.MapPath(string.Format("~{0}", filePath));
-                //    events.EventPictureFile.SaveAs(mappedFilePath);
-
-                //    // update model
-                //    events.eventpictureurl = filePath;
-                //}
                 SaveEventPictureAndUpdateEvent(ref events);
 
                 db.events.Add(events);
@@ -81,6 +68,22 @@ namespace EventMate.Controllers
 
         // GET: Events/Edit/5
         public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            events events = db.events.Find(id);
+            if (events == null)
+            {
+                return HttpNotFound();
+            }
+            return View(events);
+        }
+
+        // POST: Events/Invite/5
+        [HttpGet]
+        public ActionResult Invite(int? id)
         {
             if (id == null)
             {

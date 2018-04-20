@@ -4,6 +4,19 @@
     ViewBag.Title = "Details";
 }
 
+<h2>@Html.DisplayFor(model => model.title)</h2>
+<div class="">
+    <h4>Location</h4>
+    @Html.DisplayFor(model => model.location)
+    <h4>At</h4>
+    @Html.DisplayFor(model => model.dateandtime)
+</div>
+<div class="">
+    <h4>Event Description</h4>
+    @Html.DisplayFor(model => model.description)
+</div>
+
+
 <h2>Details</h2>
 
 <div>

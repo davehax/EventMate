@@ -12,6 +12,7 @@
         <AssociationConnector Association="eventmateModel.fk_event" ManuallyRouted="false" />
         <AssociationConnector Association="eventmateModel.fk_status" ManuallyRouted="false" />
         <AssociationConnector Association="eventmateModel.fk_user" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eventmateModel.view_eventattendees" Width="1.5" PointX="3.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

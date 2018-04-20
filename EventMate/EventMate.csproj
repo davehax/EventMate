@@ -174,10 +174,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AttendancesAPIController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Controllers\AttendancesStatusAPIController.cs" />
     <Compile Include="Controllers\AttendancestatusController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersAPIController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,6 +188,7 @@
     <Compile Include="Models\attendance.cs">
       <DependentUpon>EventMateModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AttendanceProxy.cs" />
     <Compile Include="Models\attendancestatus.cs">
       <DependentUpon>EventMateModels.tt</DependentUpon>
     </Compile>
@@ -211,9 +215,13 @@
     <Compile Include="Models\users.cs">
       <DependentUpon>EventMateModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\view_eventattendees.cs">
+      <DependentUpon>EventMateModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="docs\MySqlCommand.xml" />
@@ -241,6 +249,8 @@
       <DependentUpon>EventMateModels.edmx</DependentUpon>
       <LastGenOutput>EventMateModels.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Attendances\attendees-table.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -254,6 +264,8 @@
       <DependentUpon>EventMateModels.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Events\events-create.js" />
+    <Content Include="Scripts\Events\events-edit.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -262,6 +274,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
@@ -298,6 +311,8 @@
     <Content Include="Views\Attendances\Details.cshtml" />
     <Content Include="Views\Attendances\Edit.cshtml" />
     <Content Include="Views\Attendances\Index.cshtml" />
+    <Content Include="Views\Attendances\AddOrEditMultiple.cshtml" />
+    <Content Include="Views\Events\Invite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

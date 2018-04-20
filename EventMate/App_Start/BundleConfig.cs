@@ -26,6 +26,29 @@ namespace EventMate
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Datetime Picker
+            bundles.Add(new ScriptBundle("~/bundles/datetimepicker").Include(
+                    "~/Scripts/moment-with-locales.min.js",
+                    "~/Scripts/bootstrap-datetimepicker.min.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/content/datetimepicker").Include(
+                    "~/Content/bootstrap-datetimepicker.min.css"
+                ));
+
+            // Events
+            bundles.Add(new ScriptBundle("~/bundles/events-create").Include(
+                    "~/Scripts/Events/events-create.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/events-edit").Include(
+                    "~/Scripts/Events/events-edit.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/attendees-table").Include(
+                    "~/Scripts/Attendances/attendees-table.js"
+                ));
         }
     }
 }

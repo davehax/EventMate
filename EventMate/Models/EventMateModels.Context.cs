@@ -29,5 +29,6 @@ namespace EventMate.Models
         public virtual DbSet<attendancestatus> attendancestatus { get; set; }
         public virtual DbSet<events> events { get; set; }
         public virtual DbSet<users> users { get; set; }
+        public virtual DbSet<view_eventattendees> view_eventattendees { get; set; }
     }
 }

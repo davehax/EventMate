@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model EventMate.Models.events
+
+@{
+    ViewBag.Title = "Invite";
+}
+
+<h2>@Html.DisplayFor(model => model.title)</h2>
+<div class="">
+    <h4>Location</h4>
+    @Html.DisplayFor(model => model.location)
+    <h4>At</h4>
+    @Html.DisplayFor(model => model.dateandtime)
+</div>
+<div class="">
+    <h4>Event Description</h4>
+    @Html.DisplayFor(model => model.description)
+</div>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-2">eventId</label>
+        <span class="form-control col-md-10" data-name="eventId">@Model.id</span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Attendees</label>
+        <div class="col-md-10" id="attendees-table">
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/attendees-table")
+    <script type="text/javascript">
+        (function () {
+            var attendeeTable = new AttendeeTable("#attendees-table", {
+                eventId: @Model.id,
+                statusReadonly: true
+            })
+            var initDefer = attendeeTable.initialise();
+            initDefer.done(function () {
+                attendeeTable.renderInvite();
+            })
+        })();
+    </script>
+}
