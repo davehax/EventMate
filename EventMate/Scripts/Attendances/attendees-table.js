@@ -87,6 +87,7 @@ function AttendeeTable(selector, options) {
             var statusId = data.statuses.filter(function (s) {
                 return s.status.toLowerCase() === config.statusDefault.toLowerCase()
             })[0].id;
+
             var postData = {
                 eventId: config.eventId,
                 userAttendanceProxies: []

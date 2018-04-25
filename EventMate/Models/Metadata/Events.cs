@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Web.Mvc;
 
 namespace EventMate.Models
 {
@@ -12,6 +13,11 @@ namespace EventMate.Models
     {
         [Display(Name = "Event Picture")]
         public HttpPostedFileBase EventPictureFile { get; set; }
+
+        [Display(Name = "Description")]
+        [Required]
+        [AllowHtml]
+        public string DescriptionDummy { get; set; }
     }
 
     public class EventsMetadata
@@ -25,7 +31,7 @@ namespace EventMate.Models
         public string location;
 
         [Display(Name = "Description")]
-        [Required]
+        //[Required]
         public string description;
 
         [Display(Name = "Date")]

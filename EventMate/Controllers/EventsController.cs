@@ -52,11 +52,13 @@ namespace EventMate.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,title,location,description,dateandtime,eventpicture,EventPictureFile")] events events)
+        public ActionResult Create([Bind(Include = "id,title,location,description,dateandtime,eventpicture,EventPictureFile,DescriptionDummy")] events events)
         {
             if (ModelState.IsValid)
             {
                 SaveEventPictureAndUpdateEvent(ref events);
+
+                events.description = events.DescriptionDummy;
 
                 db.events.Add(events);
                 db.SaveChanges();
@@ -78,6 +80,10 @@ namespace EventMate.Controllers
             {
                 return HttpNotFound();
             }
+
+            // Copy description into DescriptionDummy for editing purposes
+            events.DescriptionDummy = events.description;
+
             return View(events);
         }
 
@@ -102,11 +108,13 @@ namespace EventMate.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,title,location,description,dateandtime,eventpicture,EventPictureFile,eventpictureurl")] events events)
+        public ActionResult Edit([Bind(Include = "id,title,location,description,dateandtime,eventpicture,EventPictureFile,eventpictureurl,DescriptionDummy")] events events)
         {
             if (ModelState.IsValid)
             {
                 SaveEventPictureAndUpdateEvent(ref events);
+
+                events.description = events.DescriptionDummy;
 
                 db.Entry(events).State = EntityState.Modified;
                 db.SaveChanges();

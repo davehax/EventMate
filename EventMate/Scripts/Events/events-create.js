@@ -1,16 +1,16 @@
 ﻿moment.locale("en-au");
 
-$(document).on("ready", function () {
-    var $dateAndTime = $("#dateandtime");
-    $dateAndTime.hide();
-    $dateAndTime.before($('<input class="form-control text-box single-line" id="dateandtime_dtp" name="dateandtime_dtp" type="text">'));
+// Encapsulate functions inside the "EventMate" namespace
+var EventMate = window.EventMate || {};
+//EventMate.Create = {};
 
-    var $dateAndTimeDTP = $("#dateandtime_dtp");
-    var dtp = $dateAndTimeDTP.datetimepicker({
+$(document).on("ready", function () {
+    EventMate.Controls.initDateTimePicker("dateandtime", {
         format: "DD/MM/YYYY hh:mm:ss a",
         sideBySide: true
-    })
-    dtp.on("dp.change", function (e) {
-        $dateAndTime.val(e.date.format("YYYY-MM-DD hh:mm:ssa"));
-    })
+    });
+
+    EventMate.Controls.initQuill("DescriptionDummy", {
+        theme: "snow"
+    });
 })

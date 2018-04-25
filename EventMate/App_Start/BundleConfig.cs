@@ -27,6 +27,11 @@ namespace EventMate
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
+            // Common
+            bundles.Add(new ScriptBundle("~/bundles/eventmate-common").Include(
+                    "~/Scripts/eventmate-common.js"
+                ));
+
             // Datetime Picker
             bundles.Add(new ScriptBundle("~/bundles/datetimepicker").Include(
                     "~/Scripts/moment-with-locales.min.js",
@@ -48,6 +53,15 @@ namespace EventMate
 
             bundles.Add(new ScriptBundle("~/bundles/attendees-table").Include(
                     "~/Scripts/Attendances/attendees-table.js"
+                ));
+
+            // Quill JS/CSS
+            bundles.Add(new ScriptBundle("~/bundles/quill").Include(
+                    "~/Scripts/quill.min.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/content/quill").Include(
+                    "~/Content/quill.snow.css"
                 ));
         }
     }
