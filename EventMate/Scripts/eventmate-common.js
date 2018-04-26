@@ -49,3 +49,34 @@ EventMate.Controls.initQuill = function (id, options) {
         $quillSource.val(quill.root.innerHTML);
     });
 }
+
+// Adds an Image Preview to any file input controls
+EventMate.Controls.addImagePreviewToFileInput = function (id) {
+    if (!window.File || !window.FileReader) {
+        console.log("EventMate.Controls.addImagePreviewToFileInput - File and FileReader API's are required")
+    }
+
+    var selector = "#" + id;
+    var $fileInput = $(selector);
+    var $imgPreview = $('<div class="" />');
+    $fileInput.after($imgPreview);
+
+    $fileInput.on("change", function (e) {
+        $imgPreview.html(""); // clear
+        if (e.target.files.length > 0) {
+
+            // Create a FileReader to read the contents of the selected file to provide a Preview Image
+            var fileReader = new FileReader();
+            fileReader.addEventListener("load", function () {
+                $imgPreview.append('<img src="' + fileReader.result + '" style="max-width: 100%;" />');
+            });
+
+            //var file = e.target.files[0];
+            // .readAsDataUrl is asynchronous. 
+            // On a successful read it will trigger the "load" event on the FileReader object
+            // and FileReader.result will be populated with the read data
+            fileReader.readAsDataURL(e.target.files[0]);
+
+        }
+    });
+}

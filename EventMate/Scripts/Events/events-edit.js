@@ -10,10 +10,9 @@ $(document).on("ready", function () {
         sideBySide: true
     });
 
-    // Copy value into Dummy field
-    //$("#DescriptionDummy").val($("#description").val());
-
     EventMate.Controls.initQuill("DescriptionDummy", {
         theme: "snow"
     });
+
+    EventMate.Controls.addImagePreviewToFileInput("EventPictureFile");
 })
